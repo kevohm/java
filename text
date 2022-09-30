@@ -37,10 +37,10 @@ frontend manage_entry
 	  bind 0.0.0.0:80
 	  reqadd X-Forwarded-Proto:\ https
 	  bind 0.0.0.0:443 ssl crt /etc/haproxy/cert/certificate.pem
-	  http-request redirect scheme https unless { ssl_fc }
+	  http-request redirect scheme https code 301 unless { ssl_fc }
 	  default_backend app_hbnb 
 backend app_hbnb
 	balance static-rr
-	#http-request redirect scheme https unless { ssl_fc }
+	redirect scheme https code 301 unless { ssl_fc }
 	server web-01 3.238.244.16:80 check
 	server web-02 3.226.254.64:80 check
